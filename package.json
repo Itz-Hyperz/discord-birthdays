@@ -1,0 +1,32 @@
+{
+  "name": "discord-birthdays",
+  "version": "1.0.0",
+  "description": "An NPM Module to announce users birthdays written in SQL.",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Itz-Hyperz/discord-birthdays.git"
+  },
+  "keywords": [
+    "discord",
+    "birthdays",
+    "birthday",
+    "discord-birthdays",
+    "db",
+    "hyperz",
+    "development"
+  ],
+  "author": "Hyperz#0001",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Itz-Hyperz/discord-birthdays/issues"
+  },
+  "homepage": "https://github.com/Itz-Hyperz/discord-birthdays#readme",
+  "dependencies": {
+    "discord.js": "^13.1.0",
+    "moment-timezone": "^0.5.33"
+  }
+}
