@@ -37,7 +37,7 @@ The nodelogger function offers a fair amount of customization.
 |----------------|---------------|---------------|
 | #1   | SQL VAR     | Your SQL Connection Variable (con, db, etc)
 | #2   | CLIENT VAR  | Your bots "client" variable (client, bot, etc)
-| #3   | STRING      | The format you want bdays checked as (MM-DD-YYYY)
+| #3   | STRING      | The format you want bdays checked as (MM-DD, DD-MM)
 | #4   | STRING      | The guild id for the birthday
 | #5   | ARRAY       | The channels to send the alert to
 | #6   | STRING      | The header of the birthday embed
@@ -72,7 +72,7 @@ Remove a birthday from the database function info
 ## Code Example
 
 ```js
-const Discord = require('discord.js')
+const Discord = require('discord.js') // V13
 const client = new Discord.Client({
     intents: ['GUILDS', 'GUILD_MESSAGES', "GUILD_MESSAGE_REACTIONS", "DIRECT_MESSAGES", "GUILD_MEMBERS", "GUILD_BANS", "GUILD_INTEGRATIONS", "GUILD_WEBHOOKS", "GUILD_INVITES", "GUILD_VOICE_STATES", "GUILD_PRESENCES", "GUILD_MESSAGE_TYPING", "DIRECT_MESSAGE_REACTIONS", "DIRECT_MESSAGE_TYPING"],
     partials: ["CHANNEL", "MESSAGE", "REACTIONS"],
@@ -95,7 +95,7 @@ client.on(`ready`, () => {
 
     setTimeout(async () => {
         await client.utils.dbcheck(con)
-        await client.utils.init(con, client, 'MM-DD-YYYY', '832721829822857296', ['879012702222168064'], `HAPPY BIRTHDAY`, `Happy BDay Lol`, `#ffffff`)
+        await client.utils.init(con, client, 'MM-DD', '832721829822857296', ['879012702222168064'], `HAPPY BIRTHDAY`, `Happy BDay Lol`, `#ffffff`)
     }, 3000)
 });
 

@@ -22,13 +22,13 @@ async function dbcheck(con) {
 async function init(con, client, format, guildid, channels, header, footer, color) {
     setInterval(async () => {
         // Get current date
-        let datetime = moment().tz('America/New_York').format(format)
+        let datetime = moment().tz('America/New_York').format(format).toString()
         // Select all from table
         await con.query(`SELECT * FROM birthdays`, async (err, rows) => {
             if(err) throw err; // throw err
             if(rows[0]) { // if there is any data
                 rows.forEach(async r => { // go through each bit of data
-                    if(r.deDate === datetime) { // If there birthday is equal to the current date
+                    if(r.deDate.toString().includes(datetime)) { // If there birthday is equal to the current date
                         let guild = await client.guilds.cache.get(guildid) // find guild id
                         let user = await client.users.fetch(r.userid) // find user
                         if(guild.members.cache.get(user.id)) { // if the member is in the server
