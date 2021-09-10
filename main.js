@@ -20,28 +20,27 @@ async function dbcheck(con) {
 }
 
 async function init(con, client, format, guildid, channels, header, footer, color) {
-    setInterval(async () => {
         // Get current date
         let datetime = moment().tz('America/New_York').format(format).toString()
-        // Select all from table
-        await con.query(`SELECT * FROM birthdays`, async (err, rows) => {
-            if(err) throw err; // throw err
-            if(rows[0]) { // if there is any data
+            // Select all from table
+        await con.query(`SELECT * FROM birthdays`, async(err, rows) => {
+            if (err) throw err; // throw err
+            if (rows[0]) { // if there is any data
                 rows.forEach(async r => { // go through each bit of data
-                    if(r.deDate.toString().includes(datetime)) { // If there birthday is equal to the current date
+                    if (r.deDate.toString().includes(datetime)) { // If there birthday is equal to the current date
                         let guild = await client.guilds.cache.get(guildid) // find guild id
                         let user = await client.users.fetch(r.userid) // find user
-                        if(guild.members.cache.get(user.id)) { // if the member is in the server
+                        if (guild.members.cache.get(user.id)) { // if the member is in the server
                             let bdayembed = new Discord.MessageEmbed() // create embed
-                            .setColor(color || `BLUE`)
-                            .setTitle(header || `🥳 Happy Birthday!`)
-                            .setThumbnail(user.avatarURL({ dynamic: true }) || `https://images.emojiterra.com/google/android-11/512px/1f389.png`)
-                            .setDescription(`It's **${user.tag} (<@${user.id}>)'s** Birthday today! Wish them a happy birthday and let's celebrate!\n**Date:** ${r.deDate}`)
-                            .setTimestamp()
-                            .setFooter(footer || 'Happy Birthday!')
+                                .setColor(color || `BLUE`)
+                                .setTitle(header || `🥳 Happy Birthday!`)
+                                .setThumbnail(user.avatarURL({ dynamic: true }) || `https://images.emojiterra.com/google/android-11/512px/1f389.png`)
+                                .setDescription(`It's **${user.tag} (<@${user.id}>)'s** Birthday today! Wish them a happy birthday and let's celebrate!\n**Date:** ${r.deDate}`)
+                                .setTimestamp()
+                                .setFooter(footer || 'Happy Birthday!')
                             channels.forEach(async c => { // get each channel
                                 let thechannel = await client.channels.cache.get(c)
-                                if(thechannel !== undefined) {
+                                if (thechannel !== undefined) {
                                     thechannel.send({ embeds: [bdayembed] }).catch(e => {}) // send to each channel
                                 } else {
                                     console.log(`A Birthday system channel ID is invalid...`) // log error
@@ -51,9 +50,9 @@ async function init(con, client, format, guildid, channels, header, footer, colo
                     }
                 });
             }
+            setTimeout(() => { init(con, client, format, guildid, channels, header, footer, color) }, 46800000);
         });
-    }, 46800000) // Every 13 hours (avoids double pings)
-}
+    }
 
 async function addbday(con, userid, date) {
     await con.query(`SELECT * FROM birthdays WHERE userid='${userid}'`, async (err, row) => {
